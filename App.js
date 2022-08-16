@@ -1,19 +1,18 @@
-import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, SafeAreaView } from "react-native";
-import Banner from "./Shared/banner";
 import Header from "./Shared/header";
-import Main from "./Shared/Navigarors/main";
+import Main from "./Navigators/main";
 import { NavigationContainer } from "@react-navigation/native";
+import { NativeBaseProvider } from "native-base";
 
 export default function App() {
   const myFunction = () => console.log("Hello world");
 
   return (
-    <NavigationContainer>
-      <Header />
-      <Banner />
-      <Main />
-    </NavigationContainer>
+    <NativeBaseProvider>
+      <NavigationContainer>
+        <Main />
+      </NavigationContainer>
+    </NativeBaseProvider>
   );
 }
 

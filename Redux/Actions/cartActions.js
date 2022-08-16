@@ -1,0 +1,18 @@
+import { ADD_TO_CART, REMOVE_FROM_CART, CLEAR_CART } from "../constants";
+export const addToCart = (payload) => {
+  return {
+    type: ADD_TO_CART,
+    payload, //Ovde ce biti uspisan objekat koji sadrzi quantity : 29npm product : {name: sdjasd itd}
+  };
+};
+export const removeFromCart = (payload) => {
+  return {
+    type: REMOVE_FROM_CART,
+    payload,
+  };
+};
+export const clearCart = (payload) => {
+  return {
+    type: CLEAR_CART,
+  };
+};

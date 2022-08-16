@@ -1,7 +1,10 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React, { useContext } from "react";
 import Icon from "react-native-vector-icons/FontAwesome";
-import Header from "../header";
+import Header from "../Shared/header";
+import ProductList from "../Screens/Products/productList";
+import ProductContainer from "../Screens/Products/productContainer";
+
 const tab = createBottomTabNavigator();
 
 const Main = () => {
@@ -12,11 +15,12 @@ const Main = () => {
         tabBarHideOnKeyboard: true,
         tabBarActiveTintColor: "#00B2FF",
         tabBarShowLabel: false,
+        headerShown: false,
       }}
     >
       <tab.Screen
         name="Home"
-        component={Header}
+        component={ProductContainer}
         options={{
           tabBarIcon: ({ color }) => (
             <Icon name="home" color={color} size={30} />
