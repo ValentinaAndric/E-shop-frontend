@@ -30,11 +30,8 @@ const Header = () => {
 
 const styles = StyleSheet.create({
   header: {
-    //width: "100%",
-    //flexDirection: "row",
     alignContent: "center",
     justifyContent: "cenetr",
-    // padding: 20,
   },
 });
 

@@ -1,8 +1,9 @@
 import React, { useCallback, useEffect, useState } from "react";
 import ProductList from "./productList";
-import { useFocusEffect } from "@react-navigation/native";
 import Header from "../../Shared/header";
 import Banner from "../../Shared/banner";
+import ctg from "../../assets/data/categories.json";
+import CategoryFilter from "./categoryFilter";
 
 import {
   View,
@@ -13,14 +14,13 @@ import {
   Dimensions,
 } from "react-native";
 import data from "../../assets/data/products.json";
-const height = Dimensions.get("window");
 
 const ProductContainer = (props) => {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    setProducts(data), setCategories(data);
+    setProducts(data), setCategories(ctg);
 
     return () => {
       setCategories([]);
@@ -36,6 +36,7 @@ const ProductContainer = (props) => {
       <View>
         <Banner />
       </View>
+      <CategoryFilter categories={categories} />
       <View style={styles.listContainer}>
         {products.map((item) => {
           return (
