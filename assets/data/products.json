@@ -10,7 +10,7 @@
     "numReviews": 0,
     "isFeatured": true,
     "name": "FIFA 20",
-    "description": "The most hard FIFA ever",
+    "description": "The most hard FIFA ever Layout direction specifies the direction in which children and text in a hierarchy should be laid out. Layout direction also affects what edge start and end refer to. By default, React Native lays out with LTR layout direction. In this mode start refers to left and end refers to right.",
     "category": {
       "$oid": "5f15d5cdcb4a6642bddc0fe9"
     },

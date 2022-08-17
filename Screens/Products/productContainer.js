@@ -41,7 +41,7 @@ const ProductContainer = (props) => {
         {products.map((item) => {
           return (
             <ProductList
-              // navigation={props.navigation}
+              navigation={props.navigation}
               key={item.name}
               item={item}
             />

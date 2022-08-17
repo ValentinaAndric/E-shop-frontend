@@ -2,7 +2,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React, { useContext } from "react";
 import Icon from "react-native-vector-icons/FontAwesome";
 import Header from "../Shared/header";
-import ProductContainer from "../Screens/Products/productContainer";
+import HomeNavigator from "./homeNavigator";
 
 const tab = createBottomTabNavigator();
 
@@ -19,7 +19,7 @@ const Main = () => {
     >
       <tab.Screen
         name="Home"
-        component={ProductContainer}
+        component={HomeNavigator}
         options={{
           tabBarIcon: ({ color }) => (
             <Icon name="home" color={color} size={30} />
