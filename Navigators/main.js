@@ -3,6 +3,7 @@ import React, { useContext } from "react";
 import Icon from "react-native-vector-icons/FontAwesome";
 import Header from "../Shared/header";
 import HomeNavigator from "./homeNavigator";
+import UserNavigator from "./userNavigator";
 
 const tab = createBottomTabNavigator();
 
@@ -46,7 +47,7 @@ const Main = () => {
       />
       <tab.Screen
         name="User"
-        component={Header}
+        component={UserNavigator}
         options={{
           tabBarIcon: ({ color }) => (
             <Icon name="user" color={color} size={30} />
