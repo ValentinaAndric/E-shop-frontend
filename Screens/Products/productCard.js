@@ -38,7 +38,13 @@ const ProductCard = (props) => {
 
       {countInStock > 0 ? (
         <View style={styles.button}>
-          <Button title="ADD" color="#007AFF" />
+          <Button
+            title="ADD"
+            color="#007AFF"
+            onPress={() => {
+              props.addItemToCart(props.id);
+            }}
+          />
         </View>
       ) : (
         <Text style={{ marginTop: 20, color: "#dc143c" }}>
@@ -47,6 +53,13 @@ const ProductCard = (props) => {
       )}
     </View>
   );
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addItemToCart: (product) => {
+      dispatch(actions.addToCart({ quantity: 1, product }));
+    },
+  };
 };
 
 const styles = StyleSheet.create({
@@ -91,4 +104,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProductCard;
+export default connect(null, mapDispatchToProps)(ProductCard);
