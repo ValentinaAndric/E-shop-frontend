@@ -101,7 +101,13 @@ const Product = (props) => {
             }}
           >
             <Icon name="plus" size={18} color="white" />
-            <Button title="Categories" color={"white"} />
+            <Button
+              title="Categories"
+              color={"white"}
+              onPress={() => {
+                props.navigation.navigate("Categories");
+              }}
+            />
           </View>
         </View>
         <View>
