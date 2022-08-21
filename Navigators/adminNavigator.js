@@ -1,7 +1,7 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import Product from "../Screens/Admin/product";
-import ListItem from "../Screens/Admin/listItem";
+import ProductForm from "../Screens/Admin/productForm";
 const Stack = createStackNavigator();
 
 function MyStack() {
@@ -10,6 +10,11 @@ function MyStack() {
       <Stack.Screen
         name="Product"
         component={Product}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Product Form"
+        component={ProductForm}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

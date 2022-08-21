@@ -80,7 +80,13 @@ const Product = (props) => {
             }}
           >
             <Icon name="plus" size={18} color="white" />
-            <Button title="Products" color={"white"} />
+            <Button
+              title="Products"
+              color={"white"}
+              onPress={() => {
+                props.navigation.navigate("Product Form");
+              }}
+            />
           </View>
           <View
             style={{
