@@ -21,7 +21,7 @@
     "_id": {
       "$oid": "5f15d92ee520d44421ed8e9b"
     },
-    "image": "",
+    "image": "https://cdn.pixabay.com/photo/2012/04/01/17/29/box-23649_960_720.png",
     "brand": "IKEA",
     "price": 350.9,
     "rating": 5,
@@ -39,7 +39,7 @@
     "_id": {
       "$oid": "5f15d964e520d44421ed8e9c"
     },
-    "image": "",
+    "image": "https://cdn.pixabay.com/photo/2012/04/01/17/29/box-23649_960_720.png",
     "brand": "OBI",
     "price": 1350.9,
     "rating": 5,
@@ -75,7 +75,7 @@
     "_id": {
       "$oid": "5f15da13e520d44421ed8e9e"
     },
-    "image": "https://lh3.googleusercontent.com/proxy/XRK6WCBqL7Yzk4Nfxm_d-cnRM4VzWCPMIL_B7rgDLPet9EGxjtCaUlE2odE5RavcduJDBngkiTi6YwGbI-t7mX_pdx1ZjdjKkRlcukoyPOb-pw",
+    "image": "https://cdn.pixabay.com/photo/2012/04/01/17/29/box-23649_960_720.png",
     "brand": "Mobilix",
     "price": 1000,
     "rating": 5,
