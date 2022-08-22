@@ -3,6 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Product from "../Screens/Admin/product";
 import ProductForm from "../Screens/Admin/productForm";
 import Categories from "../Screens/Admin/categories";
+import Orders from "../Screens/Admin/orders";
 const Stack = createStackNavigator();
 
 function MyStack() {
@@ -21,6 +22,11 @@ function MyStack() {
       <Stack.Screen
         name="Categories"
         component={Categories}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Orders"
+        component={Orders}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
