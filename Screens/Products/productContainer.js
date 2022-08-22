@@ -1,10 +1,11 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import ProductList from "./productList";
 import Header from "../../Shared/header";
 import Banner from "../../Shared/banner";
 import ctg from "../../assets/data/categories.json";
 import CategoryFilter from "./categoryFilter";
-
+import { useFocusEffect } from "@react-navigation/native";
+import baseUrl from "../../assets/common/baseUrl";
 import {
   View,
   StyleSheet,
@@ -14,20 +15,29 @@ import {
   Dimensions,
 } from "react-native";
 import data from "../../assets/data/products.json";
+import axios from "axios";
 
 const ProductContainer = (props) => {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
+  useFocusEffect(
+    useCallback(() => {
+      axios
+        .get(`${baseUrl}products`)
+        .then((res) => {
+          setProducts(res.data);
+          setCategories(res.data);
+        })
+        .catch((error) => {
+          console.log("Api call error");
+        });
 
-  useEffect(() => {
-    setProducts(data), setCategories(ctg);
-
-    return () => {
-      setCategories([]);
-      setProducts([]);
-    };
-  }, []);
-
+      return () => {
+        setProducts([]);
+        setCategories([]);
+      };
+    }, [])
+  );
   return (
     <ScrollView>
       <View>

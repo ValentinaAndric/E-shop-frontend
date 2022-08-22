@@ -77,10 +77,9 @@ const styles = StyleSheet.create({
   },
   image: {
     width: width / 2 - 20 - 10,
-    height: width / 2 - 20 - 30,
-    backgroundColor: "transparent",
+    height: width / 2 - 20 - 30 - 30,
+    //backgroundColor: "transparent",
     position: "absolute",
-    top: -45,
   },
   card: {
     marginBottom: 10,
@@ -92,10 +91,11 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 14,
     textAlign: "center",
+    marginTop: 10,
   },
   price: {
     fontSize: 20,
-    color: "#7fff00",
+    color: "green",
     marginTop: 10,
   },
   button: {

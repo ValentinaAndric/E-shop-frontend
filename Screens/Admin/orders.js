@@ -2,6 +2,8 @@ import { FlatList, View, Image, Dimensions } from "react-native";
 import React, { useState, useEffect } from "react";
 import OrderCard from "../../Shared/orderCard";
 import orders from "../../assets/data/orders.json";
+import axios from "axios";
+
 var { width } = Dimensions.get("window");
 const Orders = (props) => {
   const [orderList, setOrderList] = useState();
