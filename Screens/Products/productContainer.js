@@ -20,12 +20,26 @@ import axios from "axios";
 const ProductContainer = (props) => {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [productCategories, setProductCategories] = useState([]);
+  const [initialState, setInitialState] = useState([]);
+
   useFocusEffect(
     useCallback(() => {
+      //Get all products
       axios
         .get(`${baseUrl}products`)
         .then((res) => {
           setProducts(res.data);
+          setProductCategories(res.data);
+          setInitialState(res.data);
+        })
+        .catch((error) => {
+          console.log("Api call error");
+        });
+      //Get all categories
+      axios
+        .get(`${baseUrl}categories`)
+        .then((res) => {
           setCategories(res.data);
         })
         .catch((error) => {
@@ -35,30 +49,47 @@ const ProductContainer = (props) => {
       return () => {
         setProducts([]);
         setCategories([]);
+        setProductCategories([]);
       };
     }, [])
   );
+
+  const changeCtg = (category) => {
+    if (category == "All") {
+      setProductCategories(initialState);
+    } else {
+      setProductCategories(
+        products.filter((product) => product.category?._id === category)
+      );
+    }
+  };
   return (
-    <ScrollView>
-      <View>
-        <Header />
-      </View>
-      <View>
-        <Banner />
-      </View>
-      <CategoryFilter categories={categories} />
-      <View style={styles.listContainer}>
-        {products.map((item) => {
-          return (
-            <ProductList
-              navigation={props.navigation}
-              key={item.name}
-              item={item}
-            />
-          );
-        })}
-      </View>
-    </ScrollView>
+    <>
+      <ScrollView>
+        <View>
+          <Header />
+        </View>
+        <View>
+          <Banner />
+        </View>
+        <CategoryFilter
+          categories={categories}
+          categoryFilter={changeCtg}
+          productCategories={productCategories}
+        />
+        <View style={styles.listContainer}>
+          {productCategories.map((item) => {
+            return (
+              <ProductList
+                navigation={props.navigation}
+                key={item.name}
+                item={item}
+              />
+            );
+          })}
+        </View>
+      </ScrollView>
+    </>
   );
 };
 
