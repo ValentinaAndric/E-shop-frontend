@@ -10,6 +10,7 @@ const Input = (props) => {
       id={props.id}
       value={props.value}
       onChangeText={props.onChangeText}
+      keyboardType={props.keyboardType}
       secureTextEntry={props.secureTextEntry}
     ></TextInput>
   );
