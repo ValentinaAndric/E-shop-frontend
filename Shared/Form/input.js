@@ -8,9 +8,9 @@ const Input = (props) => {
       placeholder={props.placeholder}
       name={props.name}
       id={props.id}
-      //value={props.value}
-      autoCorrect={props.autoCorrect}
-      keyboardType={props.keyboardType}
+      value={props.value}
+      onChangeText={props.onChangeText}
+      secureTextEntry={props.secureTextEntry}
     ></TextInput>
   );
 };

@@ -6,10 +6,12 @@ import HomeNavigator from "./homeNavigator";
 import UserNavigator from "./userNavigator";
 import CartNavigator from "./cartNavigator";
 import AdminNavigator from "./adminNavigator";
+import AuthGlobal from "../Redux/Context/store/AuthGlobal";
 
 const tab = createBottomTabNavigator();
 
 const Main = () => {
+  const context = useContext(AuthGlobal);
   return (
     <tab.Navigator
       initialRouteName="Home"
@@ -38,15 +40,18 @@ const Main = () => {
           ),
         }}
       />
-      <tab.Screen
-        name="Admin"
-        component={AdminNavigator}
-        options={{
-          tabBarIcon: ({ color }) => (
-            <Icon name="cog" color={color} size={30} />
-          ),
-        }}
-      />
+      {context.stateUser.user.isAdmin == true ? (
+        <tab.Screen
+          name="Admin"
+          component={AdminNavigator}
+          options={{
+            tabBarIcon: ({ color }) => (
+              <Icon name="cog" color={color} size={30} />
+            ),
+          }}
+        />
+      ) : null}
+
       <tab.Screen
         name="User"
         component={UserNavigator}
