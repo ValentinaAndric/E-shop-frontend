@@ -5,6 +5,8 @@ import { Image } from "react-native";
 import { TouchableOpacity } from "react-native";
 import { ListItem } from "react-native-elements";
 import { ScrollView } from "react-native";
+import Icon from "react-native-vector-icons/FontAwesome";
+
 var { width } = Dimensions.get("window");
 const CartItem = (props) => {
   const data = props.item; //Ovo podlefati jos malo na sta se odnosi
@@ -19,9 +21,19 @@ const CartItem = (props) => {
           }}
           style={styles.image}
         />
-        <View style={{ marginTop: 30 }}>
+        <View style={{ marginTop: 30, marginLeft: 25 }}>
           <Text style={styles.name}>{data.name}</Text>
           <Text style={styles.price}>${data.price}</Text>
+          <TouchableOpacity>
+            <View
+              style={{
+                marginLeft: 210,
+                marginTop: -50,
+              }}
+            >
+              <Icon name="trash" color={"red"} size={30} />
+            </View>
+          </TouchableOpacity>
         </View>
       </View>
     </ListItem>
@@ -32,6 +44,7 @@ const styles = StyleSheet.create({
   image: {
     width: 100,
     height: 100,
+    resizeMode: "contain",
   },
   container: {
     marginTop: 20,
