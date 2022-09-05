@@ -6,10 +6,12 @@ import { TouchableOpacity } from "react-native";
 import { ListItem } from "react-native-elements";
 import { ScrollView } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
-
+import { connect } from "react-redux";
+import * as actions from "../../Redux/Actions/cartActions";
 var { width } = Dimensions.get("window");
 const CartItem = (props) => {
-  const data = props.item; //Ovo podlefati jos malo na sta se odnosi
+  const data = props.item;
+
   return (
     <ListItem style={styles.listItem}>
       <View style={styles.container}>
@@ -24,7 +26,7 @@ const CartItem = (props) => {
         <View style={{ marginTop: 30, marginLeft: 25 }}>
           <Text style={styles.name}>{data.name}</Text>
           <Text style={styles.price}>${data.price}</Text>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => props.removeFromCart(data)}>
             <View
               style={{
                 marginLeft: 210,
@@ -39,6 +41,20 @@ const CartItem = (props) => {
     </ListItem>
   );
 };
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    //clearCart: () => dispatch(actions.clearCart()),
+    removeFromCart: (item) => dispatch(actions.removeFromCart(item)),
+  };
+};
+
+// const mapStateToProps = (state) => {
+//   const { cartItem } = state;
+//   return {
+//     cartItem: cartItem,
+//   };
+// };
 
 const styles = StyleSheet.create({
   image: {
@@ -66,4 +82,4 @@ const styles = StyleSheet.create({
     borderBottomColor: "lightblue",
   },
 });
-export default CartItem;
+export default connect(null, mapDispatchToProps)(CartItem);

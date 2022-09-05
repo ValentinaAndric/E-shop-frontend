@@ -15,6 +15,7 @@ import { connect } from "react-redux";
 import AuthGlobal from "../../Redux/Context/store/AuthGlobal";
 import axios from "axios";
 import baseUrl from "../../assets/common/baseUrl";
+import * as actions from "../../Redux/Actions/cartActions";
 
 var { width, height } = Dimensions.get("window");
 
@@ -76,19 +77,20 @@ const Cart = (props) => {
               ${totalPrice}
             </Text>
           </View>
+
           <View
             style={{
-              width: "50%",
-              marginLeft: width / 4,
+              width: width / 4,
               borderWidth: 2,
               borderRadius: 5,
-              backgroundColor: "#1e90ff",
-              borderColor: "#1e90ff",
+              backgroundColor: "red",
+              borderColor: "red",
+              marginLeft: 300,
             }}
           >
             <Button
               color={"white"}
-              title="clear cart"
+              title="Clear cart"
               onPress={() => props.clearCart()}
             />
           </View>
@@ -125,10 +127,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     clearCart: () => dispatch(actions.clearCart()),
-    removeFromCart: (item) => dispatch(actions.removeFromCart(item)),
+    // removeFromCart: (item) => dispatch(actions.removeFromCart(item)),
   };
 };
-
 const styles = StyleSheet.create({
   title: {
     marginTop: 50,
@@ -137,9 +138,10 @@ const styles = StyleSheet.create({
   button: {
     marginTop: 10,
     backgroundColor: "#1e90ff",
-    width: 200,
-    marginLeft: width / 4,
+    width: width / 4,
     borderRadius: 5,
+    marginTop: -40,
+    marginLeft: 20,
   },
   hiddenButton: {
     backgroundColor: "red",
