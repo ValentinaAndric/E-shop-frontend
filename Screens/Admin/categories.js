@@ -1,5 +1,7 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
 import React, { useState, useEffect } from "react";
-
+import baseUrl from "../../assets/common/baseUrl";
 import {
   View,
   Text,
@@ -10,7 +12,6 @@ import {
   StyleSheet,
   Image,
 } from "react-native";
-import ctg from "../../assets/data/categories.json";
 var { width } = Dimensions.get("window");
 
 const Item = (props) => {
@@ -25,20 +26,72 @@ const Item = (props) => {
           borderRadius: 5,
         }}
       >
-        <Button title="Delete" color="white" />
+        <Button
+          title="Delete"
+          color="white"
+          onPress={() => props.delete(props.item.id)}
+        />
       </View>
     </View>
   );
 };
 
-const Categories = (propshuh) => {
+const Categories = (props) => {
   const [categories, setCategories] = useState();
   const [categoryName, setCategoryName] = useState();
   const [token, setToken] = useState();
 
   useEffect(() => {
-    setCategories(ctg);
+    AsyncStorage.getItem("jwt")
+      .then((res) => {
+        setToken(res);
+      })
+      .catch((error) => console.log(error));
+
+    axios
+      .get(`${baseUrl}categories`)
+      .then((res) => setCategories(res.data))
+      .catch((error) => alert("Error to load categories"));
+
+    return () => {
+      setCategories();
+      setToken();
+    };
   }, []);
+
+  const addCategory = () => {
+    const category = {
+      name: categoryName,
+    };
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    axios
+      .post(`${baseUrl}categories`, category, config)
+      .then((res) => setCategories([...categories, res.data]))
+      .catch((error) => alert("Error to load categories"));
+
+    setCategoryName("");
+  };
+
+  const deleteCategory = (id) => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    axios
+      .delete(`${baseUrl}categories/${id}`, config)
+      .then((res) => {
+        const newCategories = categories.filter((i) => i.id !== id);
+        setCategories(newCategories);
+      })
+      .catch((error) => alert("Error occured"));
+  };
   return (
     <View>
       <Image
@@ -46,44 +99,48 @@ const Categories = (propshuh) => {
         resizeMode="contain"
         style={{ height: 90, marginLeft: width / 4, marginTop: 50 }}
       />
-      <View style={{ position: "relative", height: "100%" }}>
-        <View style={{ marginBottom: 60 }}>
-          <FlatList
-            data={categories}
-            renderItem={({ item, index }) => <Item item={item} index={index} />}
-          />
-        </View>
-        <View style={styles.bottomBar}>
-          <View>
-            <View
-              style={{
-                borderWidth: 1,
-                borderColor: "green",
-                backgroundColor: "green",
-                borderRadius: 5,
-                height: 40,
-                marginLeft: 20,
-              }}
-            >
-              <Button title="Add category" color="white" />
-            </View>
-          </View>
-          <View style={{ width: width / 2.5 }}>
-            <TextInput
-              value={categoryName}
-              style={styles.input}
-              onPress={(text) => {
-                setCategoryName(text);
-              }}
+      <View style={styles.TopBar}>
+        <View>
+          <View
+            style={{
+              borderWidth: 1,
+              borderColor: "green",
+              backgroundColor: "green",
+              borderRadius: 5,
+              height: 40,
+            }}
+          >
+            <Button
+              title="Add category"
+              color="white"
+              onPress={() => addCategory()}
             />
           </View>
         </View>
+        <View style={{ width: width / 2.5 }}>
+          <TextInput
+            value={categoryName}
+            style={styles.input}
+            onChangeText={(text) => {
+              setCategoryName(text);
+            }}
+          />
+        </View>
+      </View>
+
+      <View style={{ marginBottom: 60 }}>
+        <FlatList
+          data={categories}
+          renderItem={({ item, index }) => (
+            <Item item={item} index={index} delete={deleteCategory} />
+          )}
+        />
       </View>
     </View>
   );
 };
 const styles = StyleSheet.create({
-  bottomBar: {
+  TopBar: {
     backgroundColor: "white",
     width: width,
     height: 60,
@@ -91,8 +148,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    //position: "absolute",
-    marginTop: 230,
+    marginTop: 0,
   },
   input: {
     height: 40,

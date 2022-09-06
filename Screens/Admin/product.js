@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import {
   Button,
   View,
@@ -7,13 +7,20 @@ import {
   Dimensions,
   StyleSheet,
   Image,
+  TouchableOpacity,
 } from "react-native";
-import ListItem from "./listItem";
-import SearchBar from "react-native-elements/dist/searchbar/SearchBar-ios";
-import { ActivityIndicator, FlatList } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
-import data from "../../assets/data/products.json";
+import ListItem from "./listItem";
+import { SearchBar } from "react-native-elements";
+import { ActivityIndicator, FlatList } from "react-native";
+
 import { Header } from "react-native-elements";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
+import baseUrl from "../../assets/common/baseUrl";
+import { setStatusBarNetworkActivityIndicatorVisible } from "expo-status-bar";
+import { useFocusEffect } from "@react-navigation/native";
+
 var { width, height } = Dimensions.get("window");
 const ListHeader = () => {
   return (
@@ -36,12 +43,42 @@ const ListHeader = () => {
   );
 };
 const Product = (props) => {
-  const [productList, setProductList] = useState();
   const [productFilter, setProductFilter] = useState();
   const [loading, setLoading] = useState();
-  useEffect(() => {
-    setProductFilter(data);
-  }, []);
+  const [token, setToken] = useState();
+
+  useFocusEffect(
+    useCallback(() => {
+      // Get Token
+      AsyncStorage.getItem("jwt")
+        .then((res) => {
+          setToken(res);
+        })
+        .catch((error) => console.log(error));
+
+      axios.get(`${baseUrl}products`).then((res) => {
+        setProductFilter(res.data);
+        setLoading(false);
+      });
+
+      return () => {
+        setProductFilter();
+        setLoading(true);
+      };
+    }, [])
+  );
+
+  const deleteProduct = (id) => {
+    axios
+      .delete(`${baseUrl}products/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => {
+        const products = productFilter.filter((item) => item.id !== id);
+        setProductFilter(products);
+      })
+      .catch((error) => console.log(error));
+  };
 
   return (
     <View>
@@ -116,16 +153,6 @@ const Product = (props) => {
             />
           </View>
         </View>
-        <View>
-          <SearchBar
-            placeholder="Search"
-            containerStyle={{
-              borderWidth: 3,
-              borderColor: "lightblue",
-              height: 40,
-            }}
-          />
-        </View>
         {loading ? (
           <View style={styles.spinner}>
             <ActivityIndicator size="large" color="red" />
@@ -135,7 +162,14 @@ const Product = (props) => {
             data={productFilter}
             ListHeaderComponent={ListHeader}
             renderItem={({ item, index }) => (
-              <ListItem {...item} navigation={props.navigation} index={index} />
+              <View>
+                <ListItem
+                  {...item}
+                  navigation={props.navigation}
+                  index={index}
+                  delete={deleteProduct}
+                />
+              </View>
             )}
           />
         )}

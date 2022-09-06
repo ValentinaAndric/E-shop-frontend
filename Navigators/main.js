@@ -7,7 +7,9 @@ import UserNavigator from "./userNavigator";
 import CartNavigator from "./cartNavigator";
 import AdminNavigator from "./adminNavigator";
 import AuthGlobal from "../Redux/Context/store/AuthGlobal";
-
+import cartIcon from "../Shared/cartIcon";
+import CartIcon from "../Shared/cartIcon";
+import { View } from "react-native";
 const tab = createBottomTabNavigator();
 
 const Main = () => {
@@ -36,7 +38,10 @@ const Main = () => {
         component={CartNavigator}
         options={{
           tabBarIcon: ({ color }) => (
-            <Icon name="shopping-cart" color={color} size={30} />
+            <View>
+              <Icon name="shopping-cart" color={color} size={30} />
+              <CartIcon />
+            </View>
           ),
         }}
       />

@@ -42,12 +42,25 @@ const ListItem = (props) => {
             >
               <Icon name="close" size="20" />
             </TouchableOpacity>
-            <Button title="Edit" />
-            <Button title="Delete" />
+
+            <Button title="Edit" onPress={() => setModalVisible(false)} />
+            <Button
+              title="Delete"
+              onPress={() => [props.delete(props.id), setModalVisible(false)]}
+            />
           </View>
         </View>
       </Modal>
-      <TouchableOpacity style={styles.container}>
+      <TouchableOpacity
+        onPress={() =>
+          props.navigation.navigate("Product Detail", { item: props })
+        }
+        onLongPress={() => setModalVisible(true)}
+        style={[
+          { backgroundColor: props.index % 2 == 0 ? "white" : "gainsboro" },
+          styles.container,
+        ]}
+      >
         <Image
           source={{
             uri: props.image
