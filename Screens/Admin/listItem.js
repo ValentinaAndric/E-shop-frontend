@@ -43,7 +43,13 @@ const ListItem = (props) => {
               <Icon name="close" size="20" />
             </TouchableOpacity>
 
-            <Button title="Edit" onPress={() => setModalVisible(false)} />
+            <Button
+              title="Edit"
+              onPress={() => [
+                setModalVisible(false),
+                props.navigation.navigate("Product Form", { item: props }),
+              ]}
+            />
             <Button
               title="Delete"
               onPress={() => [props.delete(props.id), setModalVisible(false)]}

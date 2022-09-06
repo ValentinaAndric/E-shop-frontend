@@ -5,6 +5,7 @@ import store from "./Redux/store";
 import { Provider } from "react-redux";
 import { NativeBaseProvider } from "native-base";
 import Auth from "./Redux/Context/store/Auth";
+import Toast from "react-native-toast-message";
 export default function App() {
   const myFunction = () => console.log("Hello world");
 
@@ -14,6 +15,7 @@ export default function App() {
         <Provider store={store}>
           <NavigationContainer>
             <Main />
+            <Toast ref={(ref) => Toast.setRef(ref)} />
           </NavigationContainer>
         </Provider>
       </NativeBaseProvider>
