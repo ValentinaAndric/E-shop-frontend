@@ -1,13 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { View, Button, StyleSheet } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { Text } from "native-base";
 import FormContainer from "../../Shared/Form/formContainer";
 import Input from "../../Shared/Form/input";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { Connect } from "react-redux";
+import AuthGlobal from "../../Redux/Context/store/AuthGlobal";
 const countries = require("../../assets/countries.json");
 
 const Checkout = (props) => {
+  const context = useContext(AuthGlobal);
   const [country, setCountry] = useState();
   const [address, setAddress] = useState();
   const [city, setCity] = useState();
@@ -17,6 +20,41 @@ const Checkout = (props) => {
   const [user, setUser] = useState();
   const [orderItems, setOrderItems] = useState();
 
+  useEffect(() => {
+    setOrderItems(props.cartItems);
+    if (context.stateUser.isAuthenticated) {
+      setUser(context.stateUser.user.sub);
+    } else {
+      props.navigation.navugate("Cart");
+      Toast.show({
+        topOffset: 60,
+        type: "error",
+        text1: "Please Login to Checkout",
+        text2: "Error",
+      });
+    }
+    return () => {
+      setOrderItems();
+    };
+  }, []);
+
+  const checkOut = () => {
+    let order = {
+      city,
+      country,
+      dateOrdered: Date.now(),
+      orderItems,
+      phone,
+      shippingAddress1: address,
+      shippingAddress2: address2,
+      status: "3",
+      user,
+      zip,
+    };
+
+    props.navigation.navigate("Payment", { order: order });
+  };
+
   return (
     <KeyboardAwareScrollView enableOnAndroid={true}>
       <FormContainer title={"Checkout"}>
@@ -25,23 +63,32 @@ const Checkout = (props) => {
           name={"phone"}
           value={phone}
           keyboardType={"numeric"}
+          onChangeText={(text) => setPhone(text)}
         />
         <Input
           placeholder={"Shipping Address 1"}
           name={"ShippingAddress1"}
           value={address}
+          onChangeText={(text) => setAddress(text)}
         />
         <Input
           placeholder={"Shipping Address 2"}
           name={"ShippingAddress2"}
           value={address2}
+          onChangeText={(text) => setAddress2(text)}
         />
-        <Input placeholder={"City"} name={"City"} value={city} />
+        <Input
+          placeholder={"City"}
+          name={"City"}
+          value={city}
+          onChangeText={(text) => setCity(text)}
+        />
         <Input
           placeholder={"Zip code"}
           name={"zip"}
           value={zip}
           keyboardType={"numeric"}
+          onChangeText={(text) => setZip(text)}
         />
         <View style={{ alignItems: "center" }}>
           <Text style={styles.text}>Select your conuntry: {country}</Text>
@@ -67,12 +114,13 @@ const Checkout = (props) => {
             borderColor: "#1e90ff",
           }}
         >
-          <Button title="Confrim" color={"white"} />
+          <Button
+            title="Confrim"
+            color={"white"}
+            onPress={() => [props.navigation.navigate("Payment"), checkOut()]}
+          />
         </View>
-        <Button
-          title="Back to cart"
-          onPress={() => props.navigation.navigate("Cart")}
-        />
+        <Button title="Back to cart" />
       </FormContainer>
     </KeyboardAwareScrollView>
   );
