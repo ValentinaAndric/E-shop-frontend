@@ -11,6 +11,7 @@ const ProductList = (props) => {
       onPress={() =>
         props.navigation.navigate("Product Detail", { item: item })
       }
+      key={item.id}
     >
       <View
         style={{

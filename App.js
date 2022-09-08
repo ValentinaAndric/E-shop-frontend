@@ -6,8 +6,10 @@ import { Provider } from "react-redux";
 import { NativeBaseProvider } from "native-base";
 import Auth from "./Redux/Context/store/Auth";
 import Toast from "react-native-toast-message";
+import { LogBox } from "react-native";
 export default function App() {
   const myFunction = () => console.log("Hello world");
+  LogBox.ignoreAllLogs();
 
   return (
     <Auth>

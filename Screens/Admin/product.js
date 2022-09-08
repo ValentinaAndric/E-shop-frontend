@@ -1,24 +1,19 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import {
   Button,
   View,
   Text,
-  TextInput,
   Dimensions,
   StyleSheet,
   Image,
-  TouchableOpacity,
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import ListItem from "./listItem";
-import { SearchBar } from "react-native-elements";
 import { ActivityIndicator, FlatList } from "react-native";
 
-import { Header } from "react-native-elements";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import baseUrl from "../../assets/common/baseUrl";
-import { setStatusBarNetworkActivityIndicatorVisible } from "expo-status-bar";
 import { useFocusEffect } from "@react-navigation/native";
 
 var { width, height } = Dimensions.get("window");

@@ -5,7 +5,6 @@ import {
   Text,
   Image,
   TouchableOpacity,
-  TouchableHighLight,
   Dimensions,
   Button,
   Modal,
@@ -40,7 +39,7 @@ const ListItem = (props) => {
                 right: 10,
               }}
             >
-              <Icon name="close" size="20" />
+              <Icon name="close" size={20} />
             </TouchableOpacity>
 
             <Button

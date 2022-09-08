@@ -2,6 +2,7 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import Login from "../Screens/Users/login";
 import Register from "../Screens/Users/register";
+import UserProfile from "../Screens/Users/userProfile";
 
 const Stack = createStackNavigator();
 
@@ -17,6 +18,13 @@ function MyStack() {
         name="Register"
         component={Register}
         options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="User Profile"
+        component={UserProfile}
+        options={{
+          headerShown: false,
+        }}
       />
     </Stack.Navigator>
   );

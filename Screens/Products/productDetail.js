@@ -8,9 +8,7 @@ import {
   StyleSheet,
   Dimensions,
 } from "react-native";
-import { Left, Right, Container, H1 } from "native-base";
-import { Toast } from "react-native-toast-message/lib/src/Toast";
-import { Connect } from "react-redux";
+
 var { width } = Dimensions.get("window");
 const ProductDetail = (props) => {
   const [item, setItem] = useState(props.route.params.item);
@@ -39,7 +37,7 @@ const ProductDetail = (props) => {
         <Text style={styles.price}>${item.price}</Text>
       </View>
       <View style={styles.button}>
-        <Button title="Add product to cart" color={"white"} />
+        <Button title="Add to cart" color={"white"} />
       </View>
     </ScrollView>
   );

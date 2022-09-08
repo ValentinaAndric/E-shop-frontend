@@ -8,10 +8,8 @@ import {
   Button,
 } from "react-native";
 import Toast from "react-native-toast-message";
-import EasyButton from "../../Shared/StyledComponents/easyButton";
 import { connect } from "react-redux";
 import * as actions from "../../Redux/Actions/cartActions";
-import { TouchableOpacity } from "react-native-web";
 
 var { width } = Dimensions.get("window");
 

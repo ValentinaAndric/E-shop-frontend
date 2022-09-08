@@ -6,18 +6,16 @@ import {
   StyleSheet,
   Image,
   Button,
-  TouchableOpacity,
   ScrollView,
 } from "react-native";
-import { Container, Text, Left, Right, H1 } from "native-base";
-import { SwipeListView } from "react-native-swipe-list-view";
+import { Container, Text } from "native-base";
 import { connect } from "react-redux";
 import AuthGlobal from "../../Redux/Context/store/AuthGlobal";
 import axios from "axios";
 import baseUrl from "../../assets/common/baseUrl";
 import * as actions from "../../Redux/Actions/cartActions";
-
-var { width, height } = Dimensions.get("window");
+import Icon from "react-native-vector-icons/FontAwesome";
+var { width } = Dimensions.get("window");
 
 const Cart = (props) => {
   const context = useContext(AuthGlobal);
@@ -103,15 +101,40 @@ const Cart = (props) => {
               />
             </View>
           ) : (
-            <Button
-              title="Login if you want to order"
-              onPress={() => props.navigation.navigate("Login")}
-            />
+            <View style={styles.button2}>
+              <Button
+                title="Login"
+                onPress={() => props.navigation.navigate("Login")}
+                color={"white"}
+              />
+            </View>
           )}
         </ScrollView>
       ) : (
-        <Container>
-          <Text>Looks like your cart is empty</Text>
+        <Container style={{ alignItems: "center", marginTop: 30 }}>
+          <Text style={{ fontSize: 22, marginLeft: 70 }}>
+            Looks like your cart is empty
+          </Text>
+          <View
+            style={{
+              width: "50%",
+              alignItems: "center",
+              borderWidth: 2,
+              borderRadius: 5,
+              backgroundColor: "red",
+              borderColor: "red",
+              flexDirection: "row",
+              marginTop: 30,
+              marginLeft: 90,
+            }}
+          >
+            <Icon name="arrow-left" color={"white"} size={20} />
+            <Button
+              title={"Shop now"}
+              onPress={() => [props.navigation.navigate("Home")]}
+              color={"white"}
+            />
+          </View>
         </Container>
       )}
     </>
@@ -136,12 +159,20 @@ const styles = StyleSheet.create({
     fontSize: 30,
   },
   button: {
-    marginTop: 10,
+    // marginTop: 10,
     backgroundColor: "#1e90ff",
     width: width / 4,
     borderRadius: 5,
     marginTop: -40,
     marginLeft: 20,
+  },
+  button2: {
+    marginTop: 10,
+    backgroundColor: "#1e90ff",
+    borderRadius: 5,
+    marginTop: -40,
+    marginLeft: 20,
+    width: 200,
   },
   hiddenButton: {
     backgroundColor: "red",

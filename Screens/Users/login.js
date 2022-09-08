@@ -15,8 +15,12 @@ const Login = (props) => {
 
   useEffect(() => {
     if (context.stateUser.isAuthenticated === true) {
-      props.navigation.navigate("Home screen");
+      props.navigation.navigate("User Profile");
     }
+    return () => {
+      setEmail();
+      setPassword();
+    };
   }, [context.stateUser.isAuthenticated]);
 
   const handleSubmit = () => {

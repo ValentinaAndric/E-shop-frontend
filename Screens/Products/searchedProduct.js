@@ -1,8 +1,7 @@
 import React from "react";
 import { View, StyleSheet, Dimensions, Image } from "react-native";
-import { Container, Body, Thumbnail, Text } from "native-base";
+import { Container, Text } from "native-base";
 import { ListItem } from "react-native-elements";
-import { ScrollView } from "react-native-web";
 
 var { width } = Dimensions.get("window");
 
@@ -17,7 +16,7 @@ const SearchedProduct = (props) => {
               onPress={() => {
                 props.navigation.navigate("Product Detail", { item: item });
               }}
-              key={item._id}
+              key={item.id}
               style={{ width: width }}
             >
               <Image

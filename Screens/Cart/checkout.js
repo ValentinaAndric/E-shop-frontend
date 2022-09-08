@@ -5,8 +5,8 @@ import { Text } from "native-base";
 import FormContainer from "../../Shared/Form/formContainer";
 import Input from "../../Shared/Form/input";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { Connect } from "react-redux";
 import AuthGlobal from "../../Redux/Context/store/AuthGlobal";
+import { connect } from "react-redux";
 const countries = require("../../assets/countries.json");
 
 const Checkout = (props) => {
@@ -21,11 +21,11 @@ const Checkout = (props) => {
   const [orderItems, setOrderItems] = useState();
 
   useEffect(() => {
-    setOrderItems(props.cartItems);
+    setOrderItems(props.cartItem);
     if (context.stateUser.isAuthenticated) {
       setUser(context.stateUser.user.sub);
     } else {
-      props.navigation.navugate("Cart");
+      props.navigation.navigate("Cart");
       Toast.show({
         topOffset: 60,
         type: "error",
@@ -51,7 +51,6 @@ const Checkout = (props) => {
       user,
       zip,
     };
-
     props.navigation.navigate("Payment", { order: order });
   };
 
@@ -117,13 +116,20 @@ const Checkout = (props) => {
           <Button
             title="Confrim"
             color={"white"}
-            onPress={() => [props.navigation.navigate("Payment"), checkOut()]}
+            onPress={() => [checkOut()]}
           />
         </View>
         <Button title="Back to cart" />
       </FormContainer>
     </KeyboardAwareScrollView>
   );
+};
+
+const mapStateToProps = (state) => {
+  const { cartItem } = state;
+  return {
+    cartItem: cartItem,
+  };
 };
 
 const styles = StyleSheet.create({
@@ -137,4 +143,4 @@ const styles = StyleSheet.create({
     marginTop: 0,
   },
 });
-export default Checkout;
+export default connect(mapStateToProps)(Checkout);

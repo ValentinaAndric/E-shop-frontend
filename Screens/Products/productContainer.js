@@ -1,20 +1,11 @@
 import React, { useCallback, useState } from "react";
 import ProductList from "./productList";
 import Banner from "../../Shared/banner";
-import ctg from "../../assets/data/categories.json";
 import CategoryFilter from "./categoryFilter";
 import { useFocusEffect } from "@react-navigation/native";
 import baseUrl from "../../assets/common/baseUrl";
-import {
-  View,
-  StyleSheet,
-  ActivityIndicator,
-  FlatList,
-  ScrollView,
-  Dimensions,
-} from "react-native";
-import { Container, Icon, Input, Text } from "native-base";
-import data from "../../assets/data/products.json";
+import { View, StyleSheet, ScrollView, Dimensions } from "react-native";
+import { Text } from "native-base";
 import axios from "axios";
 import SearchedProduct from "./searchedProduct";
 import Header from "../../Shared/header";

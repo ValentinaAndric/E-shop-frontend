@@ -107,9 +107,13 @@ const ProductForm = (props) => {
       setErr("Please fill in the form correctly");
     }
     let formData = new FormData();
-    const newImageUri = "file:///" + image.split("file:/").join("");
+    const newImageUri = image.split("file:/").join("");
 
-    formData.append("image");
+    formData.append("image", {
+      uri: newImageUri,
+      type: mime.getType(newImageUri),
+      name: newImageUri.split("/").pop(),
+    });
     formData.append("name", name);
     formData.append("brand", brand);
     formData.append("price", price);
@@ -129,6 +133,8 @@ const ProductForm = (props) => {
     };
 
     if (item !== null) {
+      console.log(formData);
+
       axios
         .put(`${baseUrl}products/${item.id}`, formData, config)
         .then((res) => {
@@ -155,6 +161,7 @@ const ProductForm = (props) => {
     } else {
       axios
         .post(`${baseUrl}products`, formData, config)
+
         .then((res) => {
           if (res.status == 200 || res.status == 201) {
             Toast.show({

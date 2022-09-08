@@ -1,17 +1,30 @@
 import { FlatList, View, Image, Dimensions } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { useState, useCallback } from "react";
 import OrderCard from "../../Shared/orderCard";
-import orders from "../../assets/data/orders.json";
 import axios from "axios";
-
+import { useFocusEffect } from "@react-navigation/native";
+import baseUrl from "../../assets/common/baseUrl";
 var { width } = Dimensions.get("window");
 const Orders = (props) => {
   const [orderList, setOrderList] = useState();
 
-  useEffect(() => {
-    setOrderList(orders);
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      getOrders();
+      return () => {
+        setOrderList();
+      };
+    }, [])
+  );
 
+  const getOrders = () => {
+    axios
+      .get(`${baseUrl}orders`)
+      .then((res) => {
+        setOrderList(res.data);
+      })
+      .catch((error) => console.log(error));
+  };
   return (
     <View>
       <Image
@@ -22,8 +35,9 @@ const Orders = (props) => {
       <FlatList
         data={orderList}
         renderItem={({ item }) => (
-          <OrderCard navigation={props.navigation} {...item} />
+          <OrderCard navigation={props.navigation} {...item} editMode={true} />
         )}
+        keyExtractor={(item) => item.id}
       />
     </View>
   );

@@ -1,13 +1,11 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React, { useContext } from "react";
 import Icon from "react-native-vector-icons/FontAwesome";
-import Header from "../Shared/header";
 import HomeNavigator from "./homeNavigator";
 import UserNavigator from "./userNavigator";
 import CartNavigator from "./cartNavigator";
 import AdminNavigator from "./adminNavigator";
 import AuthGlobal from "../Redux/Context/store/AuthGlobal";
-import cartIcon from "../Shared/cartIcon";
 import CartIcon from "../Shared/cartIcon";
 import { View } from "react-native";
 const tab = createBottomTabNavigator();

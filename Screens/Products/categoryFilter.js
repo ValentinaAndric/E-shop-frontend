@@ -1,14 +1,13 @@
 import React from "react";
-import { ListItem, Badge, Text } from "react-native-elements";
-import { TouchableOpacity, ScrollView, StyleSheet } from "react-native";
-import ProductList from "./productList";
-import ProductContainer from "./productContainer";
+import { ListItem, Badge } from "react-native-elements";
+import { TouchableOpacity, ScrollView } from "react-native";
 
 const CategoryFilter = (props) => {
   return (
     <ScrollView horizontal={true}>
       <ListItem style={{ margin: 0, padding: 0, borderRadius: 0 }}>
         <TouchableOpacity
+          key={1}
           onPress={() => {
             props.categoryFilter("All");
           }}
@@ -18,7 +17,7 @@ const CategoryFilter = (props) => {
         {props.categories.map((ctg) => {
           return (
             <TouchableOpacity
-              key={ctg._id}
+              key={ctg.id}
               onPress={() => {
                 props.categoryFilter(ctg.id);
               }}

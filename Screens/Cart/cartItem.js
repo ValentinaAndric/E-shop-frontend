@@ -4,7 +4,6 @@ import { Text } from "native-base";
 import { Image } from "react-native";
 import { TouchableOpacity } from "react-native";
 import { ListItem } from "react-native-elements";
-import { ScrollView } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { connect } from "react-redux";
 import * as actions from "../../Redux/Actions/cartActions";
@@ -13,7 +12,7 @@ const CartItem = (props) => {
   const data = props.item;
 
   return (
-    <ListItem style={styles.listItem}>
+    <ListItem style={styles.listItem} key={1}>
       <View style={styles.container}>
         <Image
           source={{

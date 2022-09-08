@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { View, Button, Text } from "react-native";
-import { Container, Content, Radio } from "native-base";
+
 import { Picker } from "@react-native-picker/picker";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { ListItem } from "react-native-elements";
-import { RadioButton } from "react-native-paper";
+
 const methods = [
   { name: "Cash on delivery", value: 1, icon: "dollar" },
   { name: "Bank Transfer", value: 2, icon: "bank" },
@@ -21,6 +21,7 @@ const Payment = (props) => {
 
   const [selected, setSelected] = useState();
   const [card, setCard] = useState();
+  const [color, setColor] = useState("white");
   return (
     <View>
       <View style={{ marginTop: 100 }}>
@@ -42,7 +43,7 @@ const Payment = (props) => {
                 <View style={{ marginLeft: 25 }}>
                   <Button
                     title={item.name}
-                    onPress={() => setSelected(item.value)}
+                    onPress={() => [setSelected(item.value)]}
                   />
                 </View>
 
@@ -57,6 +58,17 @@ const Payment = (props) => {
           })}
         </View>
       </View>
+      {selected == 2 ? (
+        <View style={{ marginRight: 10, marginTop: 10 }}>
+          <Text style={{ fontSize: 20 }}>You chose bank transfer</Text>
+        </View>
+      ) : null}
+
+      {selected == 1 ? (
+        <View style={{ marginRight: 10, marginTop: 10 }}>
+          <Text style={{ fontSize: 20 }}>You chose cash on delivery</Text>
+        </View>
+      ) : null}
 
       {selected == 3 ? (
         <View>
@@ -89,7 +101,7 @@ const Payment = (props) => {
         <Button
           title={"Confirm"}
           color={"white"}
-          //onPress={() => props.navigation.navigate("Confirm")}
+          onPress={() => props.navigation.navigate("Confirm", { order })}
         />
       </View>
     </View>
